@@ -1,12 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Index page</title>
-	</head>
-	<body>
-		<h1>Welcome to Qake</h1>
-	</body>
-</html>
+
+<jsp:include page="../../includes/header.jsp"></jsp:include>
+
+<header><h1>Hey there</h1></header>
+
+<jsp:include page="../../includes/footer.jsp"></jsp:include>
