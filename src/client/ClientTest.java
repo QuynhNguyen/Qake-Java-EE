@@ -5,6 +5,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import model.MyUser;
+import service.SignUpService;
 
 
 
@@ -14,17 +15,21 @@ public class ClientTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-//		Context jndi;
-//		
-//		try{
-//			jndi = new InitialContext();
-//			UserService service = (UserService) jndi.lookup("java:global/TwitterQake/UserImpl!service.UserService");
-//			service.createUser(new MyUser("QuynhNguyen@gmail.com", "pass1", "salt1"));
-//			
-//		}catch(NamingException e){
-//			System.out.println("something wrong with jndi lookup");
-//		}
+		testSignUpService();
 
+	}
+	
+	public static void testSignUpService(){
+		Context jndi;
+		
+		try{
+			jndi = new InitialContext();
+			SignUpService service = (SignUpService) jndi.lookup("java:global/TwitterQake/SignUpServiceImpl!service.SignUpServiceRemote");
+			service.addUser(new MyUser("Quynh@hotmail.com", "Quynh Nguyen", "Pass", "Salt"));
+			
+		}catch(NamingException e){
+			System.out.println(e.getCause().toString());
+		}
 	}
 
 }

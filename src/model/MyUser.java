@@ -18,7 +18,7 @@ public class MyUser implements java.io.Serializable {
 
 	public MyUser(){}
 	
-	public MyUser(String email, String password, String salt, String name) {
+	public MyUser(String email, String name, String password, String salt) {
 		this.email = email;
 		this.password = password;
 		this.salt = salt;
