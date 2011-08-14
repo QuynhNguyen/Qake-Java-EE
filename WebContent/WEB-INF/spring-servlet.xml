@@ -12,7 +12,8 @@
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
         
    
- 	<mvc:annotation-driven/>
+ 	
+ 	
     <context:component-scan
         base-package="controller" />
         
@@ -27,11 +28,13 @@
         <property name="suffix" value=".jsp" />
     </bean>
     
-    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-    	<property name="basename" value="message"/>
-    </bean>
+    <bean  
+      class="org.springframework.context.support.ResourceBundleMessageSource"  
+      id="messageSource">  
+        <property name="basename" value="messages" />  
+    </bean>    
 
-
+	<mvc:annotation-driven/>
    
    
 </beans>

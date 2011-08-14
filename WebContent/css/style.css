@@ -5,6 +5,10 @@
   src: local('Gloria Hallelujah'), local('GloriaHallelujah'), url('http://themes.googleusercontent.com/static/fonts/gloriahallelujah/v2/CA1k7SlXcY5kvI81M_R28Y5mSNQmgKshuii2YddNQzE.woff') format('woff');
 }
 
+.error{
+	background: #fbe3e4; color: #8a1f11;  boder: 1px solid black; 
+}
+
 body {
 background: #F2F2F2;
 margin: 0;
