@@ -6,6 +6,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 
@@ -19,10 +20,10 @@ public class MyUser implements java.io.Serializable {
 	@Email
 	public String email;
 	@NotEmpty
-	@Min(value = 5)
+	@Length(min=5)
 	public String password;
 	@NotEmpty
-	@Min(value = 5)
+	@Length(min=5)
 	@Transient
 	public String confirm;
 	public String salt;
