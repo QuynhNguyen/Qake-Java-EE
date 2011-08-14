@@ -28,13 +28,11 @@
         <property name="suffix" value=".jsp" />
     </bean>
     
-    <bean  
-      class="org.springframework.context.support.ResourceBundleMessageSource"  
-      id="messageSource">  
-        <property name="basename" value="messages" />  
-    </bean>    
+
 
 	<mvc:annotation-driven/>
    
-   
+   	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">  
+		<property name="basename" value="/WEB-INF/messages"> </property>
+	</bean>  
 </beans>
