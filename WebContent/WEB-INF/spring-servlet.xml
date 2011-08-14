@@ -10,6 +10,9 @@
  
     <context:component-scan
         base-package="controller" />
+        
+    <context:component-scan base-package="service" />
+    <context:annotation-config/>  
  
     <bean id="viewResolver"
         class="org.springframework.web.servlet.view.UrlBasedViewResolver">
@@ -18,4 +21,9 @@
         <property name="prefix" value="/WEB-INF/jsp/" />
         <property name="suffix" value=".jsp" />
     </bean>
+    
+
+
+   
+   
 </beans>

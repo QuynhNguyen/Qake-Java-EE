@@ -6,7 +6,7 @@ import javax.ejb.Stateless;
 import model.MyUser;
 import dao.MyUserDao;
 
-@Stateless
+@Stateless(name="SignUpService", mappedName="ejb/SignUp") 
 public class SignUpServiceImpl implements SignUpServiceLocal,
 		SignUpServiceRemote {
 

@@ -15,7 +15,7 @@ public class ClientTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		testSignUpService();
+		//testSignUpService();
 
 	}
 	

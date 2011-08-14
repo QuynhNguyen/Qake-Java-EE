@@ -3,7 +3,7 @@
 
 <header><h1>Sign up</h1></header>
 
-<form>
+<form method="POST">
 <p><label for="email">Email: </label> <input type="email" name="email" id="email" /></p>
 <p><label for="email">Full Name: </label> <input type="text" name="name" id="name" /></p>
 <p><label for="email">Password: </label> <input type="password" name="password" id="password" /></p>

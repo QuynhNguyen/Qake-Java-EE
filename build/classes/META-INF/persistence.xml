@@ -6,7 +6,7 @@
 		<class>model.MyUser</class>
 		<properties>
 			<property name="eclipselink.target-server" value="None"/>
-			<property name="eclipselink.ddl-generation" value="create-tables"/>
+			<!-- <property name="eclipselink.ddl-generation" value="create-tables"/> -->
 		</properties>
 	</persistence-unit>
 </persistence>
