@@ -2,6 +2,11 @@ package model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import javax.validation.constraints.Min;
+
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 
@@ -11,8 +16,15 @@ public class MyUser implements java.io.Serializable {
 
 	@Id
 	public String email;
+	@NotEmpty
+	@Min(value = 5)
 	public String password;
+	@NotEmpty
+	@Min(value = 5)
+	@Transient
+	public String confirm;
 	public String salt;
+	@NotEmpty
 	public String name;
 	
 
@@ -47,6 +59,14 @@ public class MyUser implements java.io.Serializable {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getConfirm() {
+		return confirm;
+	}
+
+	public void setConfirm(String confirm) {
+		this.confirm = confirm;
 	}
 
 	
