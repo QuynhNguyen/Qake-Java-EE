@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import model.MyUser;
 import dao.MyUserDao;
 
-@Stateless(name="SignUpService", mappedName="ejb/SignUp") 
+@Stateless(mappedName="ejb/SignUp") 
 public class SignUpServiceImpl implements SignUpServiceLocal,
 		SignUpServiceRemote {
 
@@ -21,8 +21,8 @@ public class SignUpServiceImpl implements SignUpServiceLocal,
 	@Override
 	public void addUser(MyUser user) {
 		String salt = Long.toString(new Date().getTime());
-		user.setSalt(md5Hashing(salt));
-		user.setPassword(md5Hashing(user.getPassword() + salt));
+		user.setSalt(md5Hashing(salt + user.getPassword()));
+		user.setPassword(md5Hashing(user.getPassword()));
 		myUserDao.addUser(user);
 		
 	}
@@ -43,5 +43,12 @@ public class SignUpServiceImpl implements SignUpServiceLocal,
 			return null;
 		}
 	}
+ 
+	@Override
+	public boolean isEmailUnique(String email) {
+		return myUserDao.isEmailUnique(email);
+	}
+
+
 
 }

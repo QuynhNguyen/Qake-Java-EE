@@ -8,6 +8,8 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import validation.UniquePrimary;
+
 
 
 @SuppressWarnings("serial")
@@ -17,6 +19,7 @@ public class MyUser implements java.io.Serializable {
 	@Id
 	@NotEmpty
 	@Email
+	@UniquePrimary
 	public String email;
 	@NotEmpty
 	@Length(min=5)

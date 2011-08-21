@@ -19,7 +19,7 @@ import service.SignUpServiceRemote;
 @RequestMapping("/signup")
 public class SignUpController {
 	
-	@EJB(name="SignUpService", mappedName="ejb/SignUp") 
+	@EJB(mappedName="ejb/SignUp") 
 	SignUpServiceRemote signUpService;
 
 	
