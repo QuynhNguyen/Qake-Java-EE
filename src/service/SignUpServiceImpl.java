@@ -4,11 +4,13 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import model.MyUser;
+
+import org.springframework.web.util.HtmlUtils;
+
 import dao.MyUserDao;
 
 @Stateless(mappedName="ejb/SignUp") 
@@ -23,6 +25,8 @@ public class SignUpServiceImpl implements SignUpServiceLocal,
 		String salt = Long.toString(new Date().getTime());
 		user.setSalt(md5Hashing(salt + user.getPassword()));
 		user.setPassword(md5Hashing(user.getPassword()));
+		user.setEmail(HtmlUtils.htmlEscape(user.getEmail()));
+		user.setName(HtmlUtils.htmlEscape(user.getName()));
 		myUserDao.addUser(user);
 		
 	}

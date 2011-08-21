@@ -19,14 +19,16 @@
 			margin: 0 auto;
 			text-align: center;
 		}
-		#floatingHeader > a {color: white;}
+		#floatingHeader, form > a {color: white;}
+		form{padding : 5px;}
+		
 	</style>
 	
 </head>
 
 <body>
 	<div id="floatingHeader">
-		<a href="./signup.html">Sign Up</a> | <a href="./signup.html">Sign in</a>
+		<form><label>Email </label> <input type="email" name="email" /> <label>Password: </label> <input type="password" name="password" /> <input type="submit" value="login" /> <a href="signup.html">Sign Up</a></form>
 	</div>
 	<div id="container">
 		<header id="header">
