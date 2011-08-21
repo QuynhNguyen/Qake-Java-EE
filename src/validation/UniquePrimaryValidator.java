@@ -24,11 +24,15 @@ ConstraintValidator<UniquePrimary, String> {
 		if(value.isEmpty())
 			return true;
 		
-		
-		if(service.isEmailUnique(value))
-			return false;
+		try{
+			if(service.isEmailUnique(value))
+				return false;
+		}catch(Exception e){
+			return true;
+		}
 		
 		return true;
+		
 		 
 	}
 

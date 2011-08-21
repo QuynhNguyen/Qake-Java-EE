@@ -11,6 +11,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import service.SignUpServiceRemote;
 
@@ -31,7 +32,12 @@ public class SignUpController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String signUp(Model model, @ModelAttribute("myuser") @Valid MyUser myuser, Errors errors){
+	public String signUp(Model model, @ModelAttribute("myuser") @Valid MyUser myuser, Errors errors, @RequestParam("password") String password, @RequestParam("confirm") String confirm){
+		
+		/*Password confirmation validation*/
+		if(!password.equals(confirm)){
+			errors.rejectValue("confirm", "messageCode", "Your confirmation password doesn't match your password field");
+		}
 		
 		if(errors.hasErrors()){
 			model.addAttribute("myuser", myuser); //Add myuser object to redisplay input data
