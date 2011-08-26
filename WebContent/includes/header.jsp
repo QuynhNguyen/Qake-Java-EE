@@ -28,7 +28,7 @@
 
 <body>
 	<div id="floatingHeader">
-		<form><label>Email </label> <input type="email" name="email" /> <label>Password: </label> <input type="password" name="password" /> <input type="submit" value="login" /> <a href="signup.html">Sign Up</a></form>
+		<form action="login.html" method="POST"><label>Email </label> <input type="email" name="email" /> <label>Password: </label> <input type="password" name="password" /> <input type="submit" value="login" /> <a href="signup.html">Sign Up</a></form>
 	</div>
 	<div id="container">
 		<header id="header">
