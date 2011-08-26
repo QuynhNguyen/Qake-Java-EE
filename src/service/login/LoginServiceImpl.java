@@ -2,6 +2,9 @@ package service.login;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+
+import org.springframework.web.util.HtmlUtils;
+
 import model.MyUser;
 import dao.MyUserDao;
 
@@ -13,7 +16,7 @@ public class LoginServiceImpl implements LoginServiceRemote {
 	
 	@Override
 	public MyUser loginValidation(String email, String password) {
-		return userDao.LoginValidation(email, password);
+		return userDao.LoginValidation(HtmlUtils.htmlEscape(email), HtmlUtils.htmlEscape(password));
 	}
 
 }

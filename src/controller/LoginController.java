@@ -1,6 +1,8 @@
 package controller;
 
 import javax.ejb.EJB;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.MyUser;
@@ -28,7 +30,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String loginValidation(Model model, @RequestParam("email") String email, @RequestParam("password") String password, HttpSession session){
+	public String loginValidation(Model model, @RequestParam("email") String email, @RequestParam("password") String password, HttpSession session, HttpServletResponse response){
 		model.addAttribute("title", "login");
 		MyUser user;
 		
@@ -40,6 +42,12 @@ public class LoginController {
 		}
 		
 		if(user != null){
+			Cookie qake_email = new Cookie("qake_email", user.getEmail());
+			Cookie qake_password = new Cookie("qake_password", user.getPassword());
+			qake_email.setMaxAge(60*60*24*30);
+			qake_password.setMaxAge(60*60*24*30);
+			response.addCookie(qake_email);
+			response.addCookie(qake_password);
 			return "index";
 		}else{
 			model.addAttribute("errors", "invalid email/pass");
