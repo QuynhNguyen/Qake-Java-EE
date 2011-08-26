@@ -1,7 +1,7 @@
 package controller;
 
 import javax.ejb.EJB;
-import javax.persistence.NoResultException;
+import javax.servlet.http.HttpSession;
 
 import model.MyUser;
 
@@ -28,12 +28,13 @@ public class LoginController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String loginValidation(Model model, @RequestParam("email") String email, @RequestParam("password") String password){
+	public String loginValidation(Model model, @RequestParam("email") String email, @RequestParam("password") String password, HttpSession session){
 		model.addAttribute("title", "login");
 		MyUser user;
 		
 		try{
 			user = loginService.loginValidation(email, password);
+			session.setAttribute("User", user);
 		}catch(Exception e){
 			user = null;
 		}
@@ -41,10 +42,9 @@ public class LoginController {
 		if(user != null){
 			return "index";
 		}else{
+			model.addAttribute("errors", "invalid email/pass");
 			return "login";
 		}
-				
-		
-			
+					
 	}
 }
