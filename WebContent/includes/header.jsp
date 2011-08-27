@@ -35,6 +35,6 @@
 	</div>
 	<div id="container">
 		<header id="header">
-		<a href="./index.html"><img src="images/cake-logo.png" alt="Qake Logo" title="Qake.info" border="0"/></a><span>Welcome to Qake!</span>
+		<a href="./index.html"><img src="images/cake-logo.png" alt="Qake Logo" title="Qake.info" border="0"/></a><span>Welcome to Qake! -- ${something}</span>
 		</header>
 		<div id="main">
