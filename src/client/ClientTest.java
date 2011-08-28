@@ -27,7 +27,7 @@ public class ClientTest {
 		try{
 			jndi = new InitialContext();
 			LoginService service = (LoginService) jndi.lookup("java:global/TwitterQake/LoginServiceImpl!service.login.LoginServiceRemote");
-			System.out.println(service.loginValidation("argothiusz@yahoo.com", "dontask"));
+			System.out.println(service.loginValidation("argothiusz@yahoo.com", "dontask", false));
 			
 		}catch(NamingException e){
 			System.out.println(e.getCause().toString());

@@ -15,8 +15,8 @@ public class LoginServiceImpl implements LoginServiceRemote {
 	MyUserDao userDao;
 	
 	@Override
-	public MyUser loginValidation(String email, String password) {
-		return userDao.LoginValidation(HtmlUtils.htmlEscape(email), HtmlUtils.htmlEscape(password));
+	public MyUser loginValidation(String email, String password, boolean loginViaCookie) {
+		return userDao.LoginValidation(HtmlUtils.htmlEscape(email), HtmlUtils.htmlEscape(password), false);
 	}
 
 }

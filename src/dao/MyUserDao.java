@@ -31,16 +31,18 @@ public class MyUserDao {
 		}
 	}
 	
-	public MyUser LoginValidation(String email, String password){
+	public MyUser LoginValidation(String email, String password, boolean logViaCookie){
 		
 		MyUser user = null;
 		
 		//First, we want to get the user salt string then concatenate it with the pass in password and hash it
 		try{
-			Query query = em.createQuery("SELECT myuser.salt FROM MyUser myuser WHERE myuser.email = :email");
-			query.setParameter("email", email);
-			String salt = (String) query.getSingleResult();
-			password = GeneralUtils.md5Hashing(salt + password);
+			if(logViaCookie == false){
+				Query query = em.createQuery("SELECT myuser.salt FROM MyUser myuser WHERE myuser.email = :email");
+				query.setParameter("email", email);
+				String salt = (String) query.getSingleResult();
+				password = GeneralUtils.md5Hashing(salt + password);
+			}
 			
 			//Second, we use the new hashed password to find our record in the database
 			try{

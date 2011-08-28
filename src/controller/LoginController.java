@@ -35,7 +35,7 @@ public class LoginController {
 		MyUser user;
 		
 		try{
-			user = loginService.loginValidation(email, password);
+			user = loginService.loginValidation(email, password, false);
 			session.setAttribute("User", user);
 		}catch(Exception e){
 			user = null;
