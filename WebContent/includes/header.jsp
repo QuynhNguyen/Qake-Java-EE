@@ -30,11 +30,11 @@
 		<% if(session.getAttribute("User") == null){ %>
 		<form action="login.html" method="POST"><label>Email </label> <input type="email" name="email" /> <label>Password: </label> <input type="password" name="password" /> <input type="submit" value="login" /> <a href="signup.html">Sign Up</a></form>
 		<% } else { %>
-			Welcome back, <em>${User.email}</em> ----- <a href="logout.html">Logout</a>
+			Welcome back, <em>${User.email}</em> ----- <a href="index/logout.html">Logout</a>
 		<% } %>
 	</div>
 	<div id="container">
 		<header id="header">
-		<a href="./index.html"><img src="images/cake-logo.png" alt="Qake Logo" title="Qake.info" border="0"/></a><span>Welcome to Qake! -- ${User.email}</span>
+		<a href="./index.html"><img src="images/cake-logo.png" alt="Qake Logo" title="Qake.info" border="0"/></a><span>Welcome to Qake! -- ${User.email} <br/>${whatif}</span>
 		</header>
 		<div id="main">
