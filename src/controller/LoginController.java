@@ -29,18 +29,23 @@ public class LoginController {
 		return "login";
 	}
 	
+	//Log the user in
 	@RequestMapping(method=RequestMethod.POST)
 	public String loginValidation(Model model, @RequestParam("email") String email, @RequestParam("password") String password, HttpSession session, HttpServletResponse response){
 		model.addAttribute("title", "login");
 		MyUser user;
 		
 		try{
+			//Attempt to log without using cookie
 			user = loginService.loginValidation(email, password, false);
+			//if success then store user into session
 			session.setAttribute("User", user);
 		}catch(Exception e){
+			//if false then the user doesn't exist
 			user = null;
 		}
 		
+		//If the user is validated then set session and cookie for them
 		if(user != null){
 			Cookie qake_email = new Cookie("qake_email", user.getEmail());
 			Cookie qake_password = new Cookie("qake_password", user.getPassword());
