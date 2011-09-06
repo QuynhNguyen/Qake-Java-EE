@@ -41,6 +41,14 @@
 	<mvc:interceptors>
    	 <bean class="interceptor.LoginInterceptor" />
 	</mvc:interceptors>
+
+	
+	<mvc:interceptors>
+   		<mvc:interceptor>
+        	<mvc:mapping path="/controlpanel/*"/>
+        	<bean class="interceptor.ControlPanelInterceptor" />
+    	</mvc:interceptor>
+	</mvc:interceptors>
 	
 	
 </beans>

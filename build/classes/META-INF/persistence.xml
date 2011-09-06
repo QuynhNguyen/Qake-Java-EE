@@ -4,6 +4,7 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<jta-data-source>jdbc/TwitterQakeDb</jta-data-source>
 		<class>model.MyUser</class>
+		<class>model.Category</class>
 		<properties>
 			<property name="eclipselink.target-server" value="None"/>
 			<!-- <property name="eclipselink.ddl-generation" value="create-tables"/> -->
