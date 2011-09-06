@@ -6,7 +6,13 @@
 <html>
 
 <head>
-	<title>Qake - ${title} </title>
+	<title>
+	<% if( request.getAttribute("title") == null){ %>
+		Qake - Welcome to Qake
+	<%} else {%>
+		Qake - ${title} 
+	<% } %>
+	</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" > 
 	<link rel="stylesheet" href="/TwitterQake/css/style.css" type="text/css" media="all" />
 	<style>
@@ -30,7 +36,7 @@
 		<% if(session.getAttribute("User") == null){ %>
 		<form action="/TwitterQake/login.html" method="POST"><label>Email </label> <input type="email" name="email" /> <label>Password: </label> <input type="password" name="password" /> <input type="submit" value="login" /> <a href="signup.html">Sign Up</a></form>
 		<% } else { %>
-			Welcome back, <em>${User.email}</em> ----- <input type="button" value="Control Panel" onclick="window.location='controlpanel.html'"/> <input type="button" value="Logout" onclick="window.location='/TwitterQake/logout.html'"/>
+			Welcome back, <em>${User.email}</em> ----- <input type="button" value="Control Panel" onclick="window.location='/TwitterQake/controlpanel.html'"/> <input type="button" value="Logout" onclick="window.location='/TwitterQake/logout.html'"/>
 		<% } %>
 	</div>
 	<div id="container">
