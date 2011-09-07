@@ -5,9 +5,15 @@
   src: local('Gloria Hallelujah'), local('GloriaHallelujah'), url('http://themes.googleusercontent.com/static/fonts/gloriahallelujah/v2/CA1k7SlXcY5kvI81M_R28Y5mSNQmgKshuii2YddNQzE.woff') format('woff');
 }
 
-.error{
-	background: #fbe3e4; color: #8a1f11;  boder: 1px solid black; 
-}
+.error, .alert, .notice, .success, .info {padding:0.8em;margin-bottom:1em;border:2px solid #ddd;}
+.error, .alert {background:#fbe3e4;color:#8a1f11;border-color:#fbc2c4;}
+.notice {background:#fff6bf;color:#514721;border-color:#ffd324;}
+.success {background:#e6efc2;color:#264409;border-color:#c6d880;}
+.info {background:#d5edf8;color:#205791;border-color:#92cae4;}
+.error a, .alert a {color:#8a1f11;}
+.notice a {color:#514721;}
+.success a {color:#264409;}
+.info a {color:#205791;}
 
 body {
 background: #F2F2F2;

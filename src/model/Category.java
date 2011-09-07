@@ -19,6 +19,12 @@ public class Category implements java.io.Serializable {
 	@Length(min=5)
 	String description;
 	
+	public Category(String name, String description) {
+		super();
+		this.name = name;
+		this.description = description;
+	}
+
 	public Category(){
 		//JPA required}
 	}

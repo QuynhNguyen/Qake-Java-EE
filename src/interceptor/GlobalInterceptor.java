@@ -9,12 +9,13 @@ import javax.servlet.http.HttpSession;
 
 import model.MyUser;
 
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import service.login.LoginServiceRemote;
 
-public class LoginInterceptor implements HandlerInterceptor {
+public class GlobalInterceptor implements HandlerInterceptor {
 
 	@Override
 	public void afterCompletion(HttpServletRequest request,
@@ -28,17 +29,33 @@ public class LoginInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
 			Object obj) throws Exception {
+		
+		//Global title
+		request.setAttribute("title", "Welcome To Qake");
 
 		return true;
 	}
 
-	/*Interceptor to check if user has cookie and automatically log them in*/
+	/*Interceptor to check if user has cookie and automatically log them in after controller has load*/
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response,
 			Object obj, ModelAndView model) throws Exception {
+
 		
-		//Check if session is already set or not before execute the try block otherwise it would be waste of resources
 		HttpSession session = request.getSession();
+		
+		/*
+		 * Global Header Floating Bar
+		 */
+		if(session.getAttribute("User") == null){
+			model.addObject("globalheader", "<form action='/TwitterQake/login.html' method='POST'><label>Email </label> <input type='email' name='email' /> <label>Password: </label> <input type='password' name='password' /> <input type='submit' value='login' /> <a href='signup.html'>Sign Up</a></form>");
+		}else{
+			model.addObject("globalheader", "Welcome Back!! <input type='button' value='Control Panel' onclick='window.location=\"/TwitterQake/controlpanel.html\"'/> <input type='button' value='Logout' onclick='window.location=\"/TwitterQake/logout.html\"'/>");
+		}
+		
+		/*
+		 * Global Cookie Login
+		 */
 		String foundEmailCookie = null;
 		String foundPasswordCookie = null;
 		

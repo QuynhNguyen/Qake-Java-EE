@@ -39,7 +39,7 @@
 
 	
 	<mvc:interceptors>
-   	 <bean class="interceptor.LoginInterceptor" />
+   	 <bean class="interceptor.GlobalInterceptor" />
 	</mvc:interceptors>
 
 	
