@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.HtmlUtils;
 
+import dao.CategoryDao;
+
 import service.category.CategoryServiceRemote;
 
 @Controller
@@ -65,12 +67,17 @@ public class ControlPanelController {
 			category.setName(""); //Reset form field
 			category.setDescription("");//Reset form field
 		}catch(EJBException e){
-			model.addAttribute("error", "<span class=\"error\">Category Name Already Existed</span>");
+			model.addAttribute("error", e.getMessage());
 		}
 		
-		
-		
 		return "create-category";
+	}
+	
+	@RequestMapping(value = "/manage-category", method = RequestMethod.GET)
+	public String manageCategory(Model model){
+		model.addAttribute("title", "Manage Category");
+		model.addAttribute("categories", categoryService.getAllCategory());
+		return "manage-category";
 	}
 	
 	

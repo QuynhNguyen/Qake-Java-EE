@@ -1,6 +1,8 @@
 package model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.hibernate.validator.constraints.Length;
@@ -12,6 +14,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Category implements java.io.Serializable {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	int id;
 	@NotEmpty
 	@Length(min=3)
 	String name;
@@ -23,6 +27,14 @@ public class Category implements java.io.Serializable {
 		super();
 		this.name = name;
 		this.description = description;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Category(){

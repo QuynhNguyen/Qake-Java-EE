@@ -1,5 +1,7 @@
 package service.category;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -16,6 +18,11 @@ public class CatagoryServiceImpl implements CategoryServiceLocal,
 	@Override
 	public void createCategory(Category category) {
 		categoryDao.createCategory(category);
+	}
+
+	@Override
+	public List<Category> getAllCategory() {
+		return categoryDao.getAllCategory();
 	}
 
 }

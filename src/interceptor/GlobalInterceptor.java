@@ -32,30 +32,12 @@ public class GlobalInterceptor implements HandlerInterceptor {
 		
 		//Global title
 		request.setAttribute("title", "Welcome To Qake");
-
-		return true;
-	}
-
-	/*Interceptor to check if user has cookie and automatically log them in after controller has load*/
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response,
-			Object obj, ModelAndView model) throws Exception {
-
 		
-		HttpSession session = request.getSession();
-		
-		/*
-		 * Global Header Floating Bar
-		 */
-		if(session.getAttribute("User") == null){
-			model.addObject("globalheader", "<form action='/TwitterQake/login.html' method='POST'><label>Email </label> <input type='email' name='email' /> <label>Password: </label> <input type='password' name='password' /> <input type='submit' value='login' /> <a href='signup.html'>Sign Up</a></form>");
-		}else{
-			model.addObject("globalheader", "Welcome Back!! <input type='button' value='Control Panel' onclick='window.location=\"/TwitterQake/controlpanel.html\"'/> <input type='button' value='Logout' onclick='window.location=\"/TwitterQake/logout.html\"'/>");
-		}
 		
 		/*
 		 * Global Cookie Login
 		 */
+		HttpSession session = request.getSession();
 		String foundEmailCookie = null;
 		String foundPasswordCookie = null;
 		
@@ -92,14 +74,36 @@ public class GlobalInterceptor implements HandlerInterceptor {
 						}catch(NamingException ex){
 							System.out.println("Naming exception errors");
 						}
-						return;
+						return true;
 					}
 				}
 				
 			}catch(NullPointerException ex){
-				return;
+				return true;
 			}
 		}
+
+		return true;
+	}
+
+	/*Interceptor to check if user has cookie and automatically log them in after controller has load*/
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response,
+			Object obj, ModelAndView model) throws Exception {
+
+		
+		HttpSession session = request.getSession();
+		
+		/*
+		 * Global Header Floating Bar
+		 */
+		if(session.getAttribute("User") == null){
+			model.addObject("globalheader", "<form action='/TwitterQake/login.html' method='POST'><label>Email </label> <input type='email' name='email' /> <label>Password: </label> <input type='password' name='password' /> <input type='submit' value='login' /> <a href='signup.html'>Sign Up</a></form>");
+		}else{
+			model.addObject("globalheader", "Welcome Back!! <input type='button' value='Control Panel' onclick='window.location=\"/TwitterQake/controlpanel.html\"'/> <input type='button' value='Logout' onclick='window.location=\"/TwitterQake/logout.html\"'/>");
+		}
+		
+	
 
 	}
 
