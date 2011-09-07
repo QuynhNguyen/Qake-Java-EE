@@ -25,4 +25,14 @@ public class CatagoryServiceImpl implements CategoryServiceLocal,
 		return categoryDao.getAllCategory();
 	}
 
+	@Override
+	public void deleteCategory(int category) {
+		categoryDao.deleteCategory(category);
+	}
+
+	@Override
+	public Category getCategory(int categoryId) {
+		return categoryDao.getCategory(categoryId);
+	} 
+
 }

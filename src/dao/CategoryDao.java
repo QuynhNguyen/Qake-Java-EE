@@ -26,5 +26,13 @@ public class CategoryDao {
 		return categories;
 		
 	}
+	
+	public void deleteCategory(int id){
+		em.remove(em.find(Category.class, id));
+	}
+	
+	public Category getCategory(int id){
+		return em.find(Category.class, id);
+	}
 
 }

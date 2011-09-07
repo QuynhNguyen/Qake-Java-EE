@@ -2,6 +2,7 @@ package controller;
 
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -11,12 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.HtmlUtils;
-
-import dao.CategoryDao;
 
 import service.category.CategoryServiceRemote;
 
@@ -63,7 +63,7 @@ public class ControlPanelController {
 		 */
 		try{
 			categoryService.createCategory(newCategory);
-			model.addAttribute("success", "<span class=\"success\">Category Created!</span>"); //Add success message
+			model.addAttribute("success", "<div class=\"info\">Succesfully Created <p> <a href='manage-category.html'>Go back to Management Page</a></div>"); //Add success message
 			category.setName(""); //Reset form field
 			category.setDescription("");//Reset form field
 		}catch(EJBException e){
@@ -78,6 +78,29 @@ public class ControlPanelController {
 		model.addAttribute("title", "Manage Category");
 		model.addAttribute("categories", categoryService.getAllCategory());
 		return "manage-category";
+	}
+	
+	@RequestMapping(value = "/delete-category/{categoryId}", method = RequestMethod.GET)
+	public String deleteCategory(@PathVariable String categoryId, Model model){
+		try{
+			categoryService.deleteCategory(Integer.parseInt(HtmlUtils.htmlEscape(categoryId)));
+			model.addAttribute("info", "<div class=\"info\">Succesfully Deleted <p> <a href='../manage-category.html'>Go back to Management Page</a></div>");
+		}catch(EJBTransactionRolledbackException e){
+			model.addAttribute("info", "<div class=\"info\">Category Doesn't Existed <p> <a href='../manage-category.html'>Go back to Management Page</a></div>");
+		}
+		
+		return "manage-category";
+	}
+	
+	@RequestMapping(value = "/edit-category/{categoryId}", method = RequestMethod.GET)
+	public String editCategory(@PathVariable String categoryId, Model model){
+		
+		Category category = categoryService.getCategory(Integer.parseInt(HtmlUtils.htmlEscape(categoryId)));
+		if(category == null){
+			return "redirect:manage-category.html";
+		}
+		model.addAttribute("category", category);
+		return "edit-category";
 	}
 	
 	
