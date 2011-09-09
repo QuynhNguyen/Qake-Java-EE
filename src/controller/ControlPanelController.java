@@ -136,5 +136,11 @@ public class ControlPanelController {
 		return "report";
 	}
 	
+	@RequestMapping(value = "/twitter-search", method = RequestMethod.GET)
+	public String twitterSearch(Model model){
+		
+		model.addAttribute("title", "Twitter Search");
+		return "twitter-search";
+	}
 	
 }

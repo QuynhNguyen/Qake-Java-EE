@@ -7,5 +7,6 @@
 <a href="controlpanel/create-category.html">Create Category (Publisher/SuperAdmin)</a><br/>
 <a href="controlpanel/manage-category.html">Manage Category (Publisher/SuperAdmin)</a><br/>
 <a href="controlpanel/report.html">Report Facility (All Register USer)</a><br/>
+<a href="controlpanel/twitter-search.html">Twitter Phrase/Hash Tag Search(All Register USer)</a><br/>
 
 <jsp:include page="../../includes/footer.jsp"></jsp:include>
