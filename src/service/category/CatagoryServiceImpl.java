@@ -33,6 +33,11 @@ public class CatagoryServiceImpl implements CategoryServiceLocal,
 	@Override
 	public Category getCategory(int categoryId) {
 		return categoryDao.getCategory(categoryId);
+	}
+
+	@Override
+	public void updateCategory(Category category) {
+		categoryDao.updateCategory(category);
 	} 
 
 }

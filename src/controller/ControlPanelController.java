@@ -103,5 +103,30 @@ public class ControlPanelController {
 		return "edit-category";
 	}
 	
+	@RequestMapping(value = "/edit-category/{categoryId}", method = RequestMethod.POST)
+	public String doEditCategory(@ModelAttribute("category") @Valid Category category, Errors errors, @PathVariable String categoryId, @RequestParam("name") String name, @RequestParam("description") String description, Model model){
+		
+		model.addAttribute("title", "Edit Category");
+		
+		if(errors.hasErrors()){
+			model.addAttribute("category", category);
+			return "edit-category";
+		}
+		
+		category = categoryService.getCategory(Integer.parseInt(HtmlUtils.htmlEscape(categoryId)));
+		
+		if(category == null){
+			return "redirect:manage-category.html";
+		}
+		category.setDescription(description);
+		category.setName(name);
+		
+		categoryService.updateCategory(category);
+		model.addAttribute("info", "<div class=\"info\">Succesfully Updated <p> <a href='../manage-category.html'>Go back to Management Page</a></div>");
+		
+		
+		return "edit-category";
+	}
+	
 	
 }

@@ -34,5 +34,10 @@ public class CategoryDao {
 	public Category getCategory(int id){
 		return em.find(Category.class, id);
 	}
+	
+	public void updateCategory(Category category){
+		em.createQuery("UPDATE Category category SET category.name = :name, category.description = :description WHERE category.id = :id")
+		.setParameter("name", category.getName()).setParameter("description", category.getDescription()).setParameter("id", category.getId()).executeUpdate();
+	}
 
 }

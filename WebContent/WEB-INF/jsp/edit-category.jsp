@@ -7,9 +7,9 @@ ${info}
 
 <form:form commandName="category">
 <p><label for="email">Category Category: </label> <form:input type="text" path="name" value="${category.name}"/></p>
-									  <form:errors path="name" cssClass="error"/>
+									  <form:errors path="name"/>
 <p><label for="email">Description: </label><br/> <form:textarea type="text" path="description" value="${category.description}" /></p>
-									  <form:errors path="description" cssClass="error"/>
+									  <form:errors path="description"/>
 									  
 <p><input type="submit" value="Update Category!" /></p>
 
