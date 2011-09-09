@@ -128,5 +128,13 @@ public class ControlPanelController {
 		return "edit-category";
 	}
 	
+	@RequestMapping(value = "/report", method = RequestMethod.GET)
+	public String reportFacility(Model model){
+		
+		model.addAttribute("title", "Report Facility");
+		
+		return "report";
+	}
+	
 	
 }
