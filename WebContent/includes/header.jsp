@@ -17,7 +17,7 @@
 				cache: false,
 				url: "http://api.twitter.com/1/users/show.json?screen_name=teamqake",
 				type: "GET",
-				data: "screen_name=TeamQake",
+				//data: "screen_name=TeamQake",
 				dataType: "JSONP",
 				statusCode: {
    					404: function(){alert("Page not found!");}
@@ -32,7 +32,24 @@
 			});
 			
 			$("#account_lookup").click(function(){
-				
+				if($("#twitter_search_query").val() == ""){
+					alert("Please enter a search query");
+				}else{
+					$.ajax({
+						cache: false,
+						url: "http://api.twitter.com/1/users/show.json",
+						type: "GET",
+						data: "screen_name="+$("#twitter_search_query").val(),
+						dataType: "JSONP",
+						statusCode: {
+		   					404: function(){alert("Page not found!");}
+		   				},
+		   				error: function(jqXHR, textStatus, errorThrow){alert ("Status Code: " + textStatus + " -- " + errorThrow);},
+		   				success: function(data, textStatus, jqXHR){
+		   					$("#account_lookup_result").html('<p><b>Logo:</b> <img src="'+data["profile_image_url"]+'" alt="Twitter Account Lookip" /></p><p><b>Twitter Name:</b>'+$("#twitter_search_query").val()+' </p><p id="tweet_follower"><b>Total Followers:</b>'+data["followers_count"]+' </p><p id="tweet_following"><b>Total Following:</b> '+data["friends_count"]+' </p><p id="tweet_total"><b>Total Tweets:</b> '+data["statuses_count"]+' </p><p><em>For simplicity and learning sake, I wont implement the pretty graph like the PHP version!</em></p>');
+		   				}
+					});
+				}
 			});
 		
 		}, false);
