@@ -5,6 +5,7 @@
 		<jta-data-source>jdbc/TwitterQakeDb</jta-data-source>
 		<class>model.MyUser</class>
 		<class>model.Category</class>
+		<class>model.Tweet</class>
 		<properties>
 			<property name="eclipselink.target-server" value="None"/>
 			<property name="eclipselink.ddl-generation" value="create-tables"/>
