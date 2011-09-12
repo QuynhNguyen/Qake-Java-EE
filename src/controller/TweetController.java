@@ -22,6 +22,10 @@ import org.springframework.web.util.HtmlUtils;
 
 import service.category.CategoryServiceRemote;
 import service.tweet.TweetServiceRemote;
+import twitter4j.Twitter;
+import twitter4j.TwitterException;
+import twitter4j.TwitterFactory;
+import twitter4j.conf.ConfigurationBuilder;
 
 
 
@@ -33,6 +37,15 @@ public class TweetController {
 	
 	@EJB(mappedName="ejb/Tweet")
 	TweetServiceRemote tweetService;
+	
+	/*
+	 * Twitter Information
+	 */
+	
+	private static final String ACCESS_TOKEN = "365203120-AcdroTh5ZRMqyz1PFImrfK9Q7qAPd8PzZtQP1r7v";
+	private static final String ACCESS_TOKEN_SECRET = "IWoZ8dfaKuH37zjutdBazzT1LOeKZ0r3xxuzYbNcc";
+	private static final String CONSUMER_KEY = "JXNWpU3wD2wCtB1wGyfSQ";
+	private static final String CONSUMER_SECRET = "vd70KbqaZBgwF04wEZkY7gF3249jHg4mgkfdrJCDY";
 
 	@RequestMapping(value = "/create-tweet", method = RequestMethod.GET)
 	public String viewCreateTweet(Model model){
@@ -135,6 +148,56 @@ public class TweetController {
 		model.addAttribute("headerInfo", "Delete Tweet");
 		
 		return "generic";
+	}
+	
+	/*
+	 * WARNING: PLEASE DON'T EVER USE GET TO MODIFY/CHANGE A STATE OF YOUR APPLICATION
+	 * MAIN REASON I AM DOING SO IN THIS APPLICATION BECAUSE I WANT TO SHOW THAT NO ONE
+	 * LANGUAGE IS SUPERIOR OR INFERIOR THAN OTHER. IT'S ALL UP TO THE DEVELOPER THAT DESIGN
+	 * THE APP. 
+	 * 
+	 * Take away Note: Understand the concept before you break it.
+	 *                 Java is not superior or secure than other language like PHP
+	 *                 Use POST when you try to modify or change a state of your app 
+	 *                 
+	 *  Why does it matter you ask? Ever heard of search engine crawler? :)
+	 */
+	@RequestMapping(value = "/publish-tweet", method = RequestMethod.GET)
+	public String publishTweet(Model model){
+		
+		
+		model.addAttribute("title", "Delete Tweet");
+		model.addAttribute("headerInfo", "Delete Tweet");
+		publishTweetToTwitter();
+		return "generic";
+	}
+	
+	/*
+	 * TWITTER PUBLISH MECHANISM TO BE USED WITH PUBLISH FUNCTION
+	 */
+	
+	public void publishTweetToTwitter(){
+
+		
+		ConfigurationBuilder cb = new ConfigurationBuilder();
+		cb.setDebugEnabled(true)
+		  .setOAuthConsumerKey(CONSUMER_KEY)
+		  .setOAuthConsumerSecret(CONSUMER_SECRET)
+		  .setOAuthAccessToken(ACCESS_TOKEN)
+		  .setOAuthAccessTokenSecret(ACCESS_TOKEN_SECRET);
+		TwitterFactory tf = new TwitterFactory(cb.build());
+		Twitter twitter = tf.getInstance();
+		
+		
+		try {
+			twitter.updateStatus("Hello World!");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	    System.out.println("Successfully updated the status.");
+	   
 	}
 	
 }
