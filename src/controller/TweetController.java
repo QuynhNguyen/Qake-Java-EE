@@ -19,13 +19,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.HtmlUtils;
-
 import service.category.CategoryServiceRemote;
 import service.tweet.TweetServiceRemote;
-import twitter4j.Twitter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterFactory;
-import twitter4j.conf.ConfigurationBuilder;
+
 
 
 
@@ -38,15 +34,6 @@ public class TweetController {
 	@EJB(mappedName="ejb/Tweet")
 	TweetServiceRemote tweetService;
 	
-	/*
-	 * Twitter Information
-	 */
-	
-	private static final String ACCESS_TOKEN = "365203120-AcdroTh5ZRMqyz1PFImrfK9Q7qAPd8PzZtQP1r7v";
-	private static final String ACCESS_TOKEN_SECRET = "IWoZ8dfaKuH37zjutdBazzT1LOeKZ0r3xxuzYbNcc";
-	private static final String CONSUMER_KEY = "JXNWpU3wD2wCtB1wGyfSQ";
-	private static final String CONSUMER_SECRET = "vd70KbqaZBgwF04wEZkY7gF3249jHg4mgkfdrJCDY";
-
 	@RequestMapping(value = "/create-tweet", method = RequestMethod.GET)
 	public String viewCreateTweet(Model model){
 		List<Category> categories = categoryService.getAllCategory();
@@ -55,9 +42,9 @@ public class TweetController {
 		model.addAttribute("categories", categories); 
 		return "create-tweet";
 	}
-	
+
 	@RequestMapping(value = "/create-tweet", method = RequestMethod.POST)
-	public String signUp(Model model, @ModelAttribute("tweet") @Valid Tweet tweet, Errors errors, HttpServletRequest request, HttpSession session){
+	public String createTweet(Model model, @ModelAttribute("tweet") @Valid Tweet tweet, Errors errors, HttpServletRequest request, HttpSession session){
 		
 		Category aCategory = null; //Local category variable
 		
@@ -94,7 +81,6 @@ public class TweetController {
 				aCategory = categoryService.getCategory(Integer.parseInt(HtmlUtils.htmlEscape(categoriesSelected[i])));
 				tweet.addCategory(aCategory);
 			}
-			
 			//Set author Name
 			MyUser user = (MyUser) session.getAttribute("User");
 			tweet.setAuthor(user.getEmail());
@@ -104,7 +90,7 @@ public class TweetController {
 		
 		//Persist it!
 		tweetService.createTweet(tweet);
-		model.addAttribute("info", "<div class=\"info\">Succesfully Created Tweet<p> <a href='manage-tweet.html'>Go back to Management Page</a></div>"); //Add success message
+		model.addAttribute("info", "<div class=\"info\">Succesfully Created Tweet<p> <a href='pending-tweet.html'>Go back to Management Page</a></div>"); //Add success message
 		
 		return "create-tweet"; 
 	}
@@ -162,42 +148,23 @@ public class TweetController {
 	 *                 
 	 *  Why does it matter you ask? Ever heard of search engine crawler? :)
 	 */
-	@RequestMapping(value = "/publish-tweet", method = RequestMethod.GET)
-	public String publishTweet(Model model){
+	@RequestMapping(value = "/{tweetId}/publish-tweet", method = RequestMethod.GET)
+	public String publishTweet(Model model, @PathVariable String tweetId){
 		
 		
-		model.addAttribute("title", "Delete Tweet");
-		model.addAttribute("headerInfo", "Delete Tweet");
-		publishTweetToTwitter();
+		model.addAttribute("title", "Publish Tweet");
+		model.addAttribute("headerInfo", "Publish Tweet");
+		try{
+			tweetService.publishTweet(Integer.parseInt(HtmlUtils.htmlEscape(tweetId)));
+			model.addAttribute("info", "<div class=\"info\">Succesfully Published Tweet To Company And Twitter <p> <a href='../pending-tweet.html'>Go back to Tweet Management Page</a></div>");
+		}catch(Exception e){
+			model.addAttribute("info", "<div class=\"info\">Failed To Publish Tweet! <p> <a href='../pending-tweet.html'>Go back to Tweet Management Page</a></div>");
+		}
+		
+
 		return "generic";
 	}
 	
-	/*
-	 * TWITTER PUBLISH MECHANISM TO BE USED WITH PUBLISH FUNCTION
-	 */
 	
-	public void publishTweetToTwitter(){
-
-		
-		ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setDebugEnabled(true)
-		  .setOAuthConsumerKey(CONSUMER_KEY)
-		  .setOAuthConsumerSecret(CONSUMER_SECRET)
-		  .setOAuthAccessToken(ACCESS_TOKEN)
-		  .setOAuthAccessTokenSecret(ACCESS_TOKEN_SECRET);
-		TwitterFactory tf = new TwitterFactory(cb.build());
-		Twitter twitter = tf.getInstance();
-		
-		
-		try {
-			twitter.updateStatus("Hello World!");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	    System.out.println("Successfully updated the status.");
-	   
-	}
 	
 }

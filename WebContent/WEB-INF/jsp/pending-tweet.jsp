@@ -20,7 +20,7 @@ ${info}
 <td>${tweet.author}</td>
 <td><ol><c:forEach items="${tweet.categories}" var="category" ><li>${category.name}</li></c:forEach> </ol></td>
 <td>
-<p><a href="${tweet.id}/delete-tweet.html" onclick="return confirm('Are You Sure?')">Publish Tweet</a></p>
+<p><a href="${tweet.id}/publish-tweet.html" onclick="return confirm('Are You Sure?')">Publish Tweet</a></p>
 <p><a href="${tweet.id}/delete-tweet.html" onclick="return confirm('Are You Sure?')">Schedule Tweet</a></p>
 <p><a href="${tweet.id}/delete-tweet.html" onclick="return confirm('Are You Sure?')">Edit Tweet</a></p>
 <p><a href="${tweet.id}/delete-tweet.html" onclick="return confirm('Are You Sure?')">Delete Tweet</a></p>

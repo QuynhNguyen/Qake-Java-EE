@@ -27,4 +27,11 @@ public class TweetDao {
 		em.remove(em.find(Tweet.class, id));
 	}
 	
+	public Tweet findTweetById(int id){
+		return em.find(Tweet.class, id);
+	}
+	
+	public void publishTweet(int id){
+		em.createQuery("UPDATE Tweet tweet SET tweet.status = :status WHERE tweet.id = :id ").setParameter("status", "live").setParameter("id", id).executeUpdate();
+	}
 }
