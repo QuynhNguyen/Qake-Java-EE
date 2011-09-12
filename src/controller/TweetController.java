@@ -1,19 +1,21 @@
 package controller;
 
-import java.util.HashSet;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import model.Category;
+import model.MyUser;
 import model.Tweet;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.HtmlUtils;
@@ -42,11 +44,9 @@ public class TweetController {
 	}
 	
 	@RequestMapping(value = "/create-tweet", method = RequestMethod.POST)
-	public String signUp(Model model, @ModelAttribute("tweet") @Valid Tweet tweet, Errors errors, HttpServletRequest request){
+	public String signUp(Model model, @ModelAttribute("tweet") @Valid Tweet tweet, Errors errors, HttpServletRequest request, HttpSession session){
 		
 		Category aCategory = null; //Local category variable
-		
-		
 		
 		//Global Title
 		model.addAttribute("title", "Create Tweet");
@@ -55,8 +55,6 @@ public class TweetController {
 		List<Category> categories = categoryService.getAllCategory();
 		model.addAttribute("categories", categories); 
 		
-		//Create new HashSet to store categories;
-		tweet.setCategories(new HashSet<Category>());
 		
 		/*
 		 * Don't do anything if there is error
@@ -66,7 +64,6 @@ public class TweetController {
 			model.addAttribute("categories", categories); 
 			return "create-tweet"; //Redisplay signup page if there is any error
 		}
-		
 		
 		
 		//Categories Checkbox selected
@@ -83,7 +80,11 @@ public class TweetController {
 			for(int i = 0; i < categoriesSelected.length; i++){
 				aCategory = categoryService.getCategory(Integer.parseInt(HtmlUtils.htmlEscape(categoriesSelected[i])));
 				tweet.addCategory(aCategory);
-			}		
+			}
+			
+			//Set author Name
+			MyUser user = (MyUser) session.getAttribute("User");
+			tweet.setAuthor(user.getEmail());
 		}catch(NullPointerException e){
 			System.out.println("DAM, something went wrong again with stupid categories finder");
 		}
@@ -92,8 +93,48 @@ public class TweetController {
 		tweetService.createTweet(tweet);
 		model.addAttribute("info", "<div class=\"info\">Succesfully Created Tweet<p> <a href='manage-tweet.html'>Go back to Management Page</a></div>"); //Add success message
 		
-		
 		return "create-tweet"; 
+	}
+	
+	@RequestMapping(value = "/pending-tweet", method = RequestMethod.GET)
+	public String viewPendingTweets(Model model){
+		
+		//Get All Pending Tweet
+		List<Tweet> pendingTweets = tweetService.getAllPendingTweets();
+		
+		model.addAttribute("title", "Pending Tweets");
+		model.addAttribute("pendingTweets", pendingTweets);
+		
+		return "pending-tweet";
+	}
+	
+	/*
+	 * WARNING: PLEASE DON'T EVER USE GET TO MODIFY/CHANGE A STATE OF YOUR APPLICATION
+	 * MAIN REASON I AM DOING SO IN THIS APPLICATION BECAUSE I WANT TO SHOW THAT NO ONE
+	 * LANGUAGE IS SUPERIOR OR INFERIOR THAN OTHER. IT'S ALL UP TO THE DEVELOPER THAT DESIGN
+	 * THE APP. 
+	 * 
+	 * Take away Note: Understand the concept before you break it.
+	 *                 Java is not superior or secure than other language like PHP
+	 *                 Use POST when you try to modify or change a state of your app 
+	 *                 
+	 *  Why does it matter you ask? Ever heard of search engine crawler? :)
+	 */
+	@RequestMapping(value = "/{tweetId}/delete-tweet", method = RequestMethod.GET)
+	public String deleteTweet(Model model, @PathVariable String tweetId){
+		
+		try{
+			tweetService.deleteTweet(Integer.parseInt(HtmlUtils.htmlEscape(tweetId)));
+			model.addAttribute("info", "<div class=\"info\">Succesfully Deleted <p> <a href='../pending-tweet.html'>Go back to Tweet Management Page</a></div>");
+		}catch(Exception e){
+			model.addAttribute("info", "<div class=\"info\">Failed To Deleted <p> <a href='../pending-tweet.html'>Go back to Tweet Management Page</a></div>");
+		}
+		
+		
+		model.addAttribute("title", "Delete Tweet");
+		model.addAttribute("headerInfo", "Delete Tweet");
+		
+		return "generic";
 	}
 	
 }

@@ -1,13 +1,15 @@
 package model;
 
+import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -17,14 +19,24 @@ public class Tweet implements java.io.Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	int id;
+	private int id;
 	@NotEmpty
 	@Length(max=140)
-	String content;
-	@OneToMany
-	Set<Category> categories;
+	private String content;
+	@OneToMany(fetch = FetchType.EAGER)
+	private Set<Category> categories = new HashSet<Category>();
+	private String status = "pending";
+	private String author;
 	
 	public Tweet(){}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public int getId() {
 		return id;
@@ -53,6 +65,14 @@ public class Tweet implements java.io.Serializable{
 	public void addCategory(Category category) {
 		this.categories.add(category);
 		
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
 	};
 	
 }

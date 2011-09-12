@@ -1,5 +1,7 @@
 package service.tweet;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
@@ -18,6 +20,16 @@ public class TweetServiceImpl implements TweetServiceLocal, TweetServiceRemote {
 	@Override
 	public void createTweet(Tweet tweet) {
 		tweetDao.createTweet(tweet);
+	}
+
+	@Override
+	public List<Tweet> getAllPendingTweets() {
+		return tweetDao.getAllPendingTweets();
+	}
+
+	@Override
+	public void deleteTweet(int id) {
+		tweetDao.deleteTweet(id);
 	}
 
 }

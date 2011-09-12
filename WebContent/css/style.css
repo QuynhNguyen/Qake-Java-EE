@@ -61,5 +61,7 @@ clear: both;
 .team_display {
 margin-bottom: 20px;
 }
-
+td{padding: 20px; border: 0px;}
+tr:nth-child(2n) {background: lightblue;}
+table{border-collapse: collapse;}
 #header > span {margin-top: 30px; position: absolute; margin-left: 50px;}
