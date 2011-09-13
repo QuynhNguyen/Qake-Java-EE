@@ -100,9 +100,23 @@ public class GlobalInterceptor implements HandlerInterceptor {
 		if(session.getAttribute("User") == null){
 			model.addObject("globalheader", "<form action='/TwitterQake/login.html' method='POST'><label>Email </label> <input type='email' name='email' /> <label>Password: </label> <input type='password' name='password' /> <input type='submit' value='login' /> <a href='signup.html'>Sign Up</a></form>");
 		}else{
-			model.addObject("globalheader", "Welcome Back!! <input type='button' value='Control Panel' onclick='window.location=\"/TwitterQake/controlpanel.html\"'/> <input type='button' value='Logout' onclick='window.location=\"/TwitterQake/logout.html\"'/>");
+			model.addObject("globalheader", "<form method = 'POST' action='/TwitterQake/search.html'><input type='text' name='searchQueryString' /> <input type='submit' value='Search' /> <input type='button' value='Control Panel' onclick='window.location=\"/TwitterQake/controlpanel.html\"'/> <input type='button' value='Logout' onclick='window.location=\"/TwitterQake/logout.html\"'/></form>");
 		}
 		
+		
+		/*
+		 * SideBar loading
+		 */
+		
+		String sidebar = "<div id=\"sidebar\"><header><h1>About Us!</h1></header><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad mini </p><header><h1>Contact Us Today!</h1></header><form><p><label>Name:</label> <input type=\"text\" /></p><p><label>Phone:</label> <input type=\"text\" /></p><p><label>Email:</label> <input type=\"text\" /></p><p><label>Message:</label></p><p><textarea></textarea></p><p><input type=\"submit\" value=\"Contact Us\" onclick=\"alert('We will contact you shortly')\" /></p></form><header><h1>Our Clients: </h1></header><p><img src=\"http://www.seoinc.com/images/client_logos/microsoft.jpg\" alt=\"Microsoft\"/></p><p><img src=\"http://www.seoinc.com/images/client_logos/att.jpg\" alt=\"ATT\"/></p><p><img src=\"http://www.seoinc.com/images/client_logos/sony.jpg\" alt=\"Sony\"/></p><p><img src=\"http://www.seoinc.com/images/client_logos/entrepreneur.jpg\" alt=\"entrepreneur\"/></p></div>";
+     			
+     	 String requestUrl = request.getRequestURI();
+     	 if(requestUrl.indexOf("pending-tweet") == -1){
+     		 model.addObject("sidebar", sidebar);
+     	 }else{
+     		 model.addObject("sidebar", "<script>window.addEventListener('load', function(){var mainArea = document.getElementById('content');  mainArea.style.width = '100%';}, false); </script>");
+     	 }
+     		
 	
 
 	}

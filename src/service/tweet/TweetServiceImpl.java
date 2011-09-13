@@ -80,13 +80,17 @@ public class TweetServiceImpl implements TweetServiceLocal, TweetServiceRemote {
 		try {
 			twitter.updateStatus(status);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		//Debugging
 	    System.out.println("Successfully updated the status.");
 	   
+	}
+
+	@Override
+	public void updateTweet(int id, String content) {
+		tweetDao.updateTweet(id, content);
 	}
 
 }

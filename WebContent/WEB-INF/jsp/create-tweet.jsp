@@ -9,7 +9,7 @@ ${info}
 <p><label for="content">Tweet Content: <br/></label> <form:textarea type="text" path="content" /></p>
 									  <form:errors path="content"/>
 									  
-									  
+<br/>									  
 <c:forEach items="${categories}" var="category">
 <p><input type="checkbox" name="categories_checkboxes" value="${category.id}" /> ${category.name}</p>
 </c:forEach>

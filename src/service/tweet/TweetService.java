@@ -11,4 +11,5 @@ public interface TweetService {
 	public void deleteTweet(int id);
 	public Tweet findTweetById(int id);
 	public void publishTweet(int id);
+	public void updateTweet(int id, String content);
 }

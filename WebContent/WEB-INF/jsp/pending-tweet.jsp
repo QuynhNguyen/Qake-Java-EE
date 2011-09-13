@@ -22,7 +22,7 @@ ${info}
 <td>
 <p><a href="${tweet.id}/publish-tweet.html" onclick="return confirm('Are You Sure?')">Publish Tweet</a></p>
 <p><a href="${tweet.id}/delete-tweet.html" onclick="return confirm('Are You Sure?')">Schedule Tweet</a></p>
-<p><a href="${tweet.id}/delete-tweet.html" onclick="return confirm('Are You Sure?')">Edit Tweet</a></p>
+<p><a href="${tweet.id}/edit-tweet.html" onclick="return confirm('Are You Sure?')">Edit Tweet</a></p>
 <p><a href="${tweet.id}/delete-tweet.html" onclick="return confirm('Are You Sure?')">Delete Tweet</a></p>
 </td>
 </tr>

@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.HtmlUtils;
+
 import service.category.CategoryServiceRemote;
 import service.tweet.TweetServiceRemote;
 
@@ -165,6 +167,37 @@ public class TweetController {
 		return "generic";
 	}
 	
+	@RequestMapping(value = "/{tweetId}/edit-tweet", method = RequestMethod.GET)
+	public String viewTweetEdit(Model model, @PathVariable String tweetId){
+		model.addAttribute("title", "Edit Tweet");
+		model.addAttribute("tweet", tweetService.findTweetById(Integer.parseInt(HtmlUtils.htmlEscape(tweetId))));
+		return "edit-tweet";
+	}
+	
+	@RequestMapping(value = "/{tweetId}/edit-tweet", method = RequestMethod.POST)
+	public String tweetEdit(Model model, @ModelAttribute("tweet") @Valid Tweet tweet, Errors errors, @RequestParam("content") String content, @PathVariable String tweetId){
+		
+		model.addAttribute("title", "Edit Tweet");
+		
+		if(errors.hasErrors()){
+			model.addAttribute("tweet", tweet);
+			return "edit-tweet";
+		}
+		
+		//If there is no error
+		tweetService.updateTweet(Integer.parseInt(HtmlUtils.htmlEscape(tweetId)), HtmlUtils.htmlEscape(content));
+		model.addAttribute("info", "<div class=\"info\">Succesfully Updated Tweet <p> <a href='../pending-tweet.html'>Go back to Tweet Management Page</a></div>");
+		return "edit-tweet";
+	}
+	
+	public String searchTweet(Model model, @RequestParam("searchQueryString") String searchQueryString ){
+		
+		
+		model.addAttribute("title", "Search Result");
+		model.addAttribute("headerInfo", "Search Result");
+		
+		return "generic";
+	}
 	
 	
 }

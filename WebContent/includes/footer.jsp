@@ -1,10 +1,15 @@
-			</div>
-				<footer id="footer">
-					&copy; Qake.info
-				</footer>
-		</div>
+ 	
+ 				</div>
+     			
+ 		<br style="clear: both;" />
+ 	</div>
+     		<footer id="footer">
+     			&copy; Qake.info 
+     		</footer>
 
-
-	</body>
-
-</html>
+    </div>
+ 
+ 
+     </body>
+ 
+ </html>
